@@ -1,0 +1,157 @@
+/* City Heatmap Styles */
+.heatmap-page {
+  min-height: 100vh;
+  background: #020a10;
+  color: #fff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.heatmap-bg {
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse at 50% 30%, rgba(255,59,48,0.04) 0%, transparent 60%),
+              radial-gradient(ellipse at 20% 80%, rgba(0,212,255,0.03) 0%, transparent 50%);
+  pointer-events: none;
+}
+.heatmap-header { background: rgba(2,10,16,0.9); }
+
+/* Stats Row */
+.heatmap-stats {
+  display: flex; gap: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.01);
+}
+.hmap-stat {
+  flex: 1; padding: 16px 20px; text-align: center;
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+.hmap-stat:last-child { border-right: none; }
+.hmap-stat-val { font-size: 1.6rem; font-weight: 900; color: var(--hsc, #fff); }
+.hmap-stat-lbl { font-size: 0.68rem; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.07em; font-weight: 600; margin-top: 2px; }
+
+/* Main Layout */
+.heatmap-layout { flex: 1; display: flex; flex-direction: column; }
+.heatmap-main { flex: 1; display: grid; grid-template-columns: 1fr 300px; gap: 0; }
+
+/* Map */
+.heatmap-container {
+  position: relative; overflow: hidden;
+  background: #020a10;
+  border-right: 1px solid rgba(255,255,255,0.06);
+  min-height: calc(100vh - 140px);
+}
+.india-outline { position: absolute; inset: 0; width: 100%; height: 100%; }
+.map-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.025) 1px, transparent 1px);
+  background-size: 8% 8%;
+}
+.city-label {
+  position: absolute; transform: translate(-50%, -50%);
+  font-size: 0.6rem; color: rgba(255,255,255,0.15);
+  font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  pointer-events: none;
+}
+.map-attribution {
+  position: absolute; bottom: 12px; left: 16px;
+  font-size: 0.65rem; color: rgba(255,255,255,0.15); font-weight: 500;
+}
+
+/* Incident Dots */
+.incident-dot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 10;
+}
+.dot-ring {
+  position: absolute;
+  width: calc(var(--dot-size, 12) * 1px + 12px);
+  height: calc(var(--dot-size, 12) * 1px + 12px);
+  border-radius: 50%;
+  border: 2px solid var(--dot-color, #fff);
+  opacity: 0.3;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s;
+}
+.dot-core {
+  font-size: calc(var(--dot-size, 12) * 1px);
+  line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+  filter: drop-shadow(0 0 6px var(--dot-color, #fff));
+  transition: transform 0.2s;
+}
+.incident-dot.dot-active .dot-ring { animation: pulse-ring 2s ease infinite; opacity: 0.5; }
+.incident-dot:hover .dot-core { transform: scale(1.3); }
+.incident-dot.dot-hovered .dot-ring { opacity: 0.8; }
+
+/* Tooltip */
+.dot-tooltip {
+  position: absolute;
+  bottom: calc(100% + 12px); left: 50%;
+  transform: translateX(-50%);
+  background: rgba(10,22,40,0.95);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  width: 200px;
+  backdrop-filter: blur(20px);
+  z-index: 100;
+  animation: fadeInUp 0.2s var(--ease);
+  pointer-events: none;
+}
+.tooltip-id { font-size: 0.72rem; font-weight: 800; color: #fff; margin-bottom: 4px; }
+.tooltip-type { font-size: 0.78rem; color: rgba(255,255,255,0.6); text-transform: capitalize; margin-bottom: 4px; }
+.tooltip-sev { font-size: 0.72rem; color: rgba(255,255,255,0.4); margin-bottom: 2px; }
+.tooltip-risk { font-size: 0.72rem; color: #ff4444; font-weight: 700; }
+.tooltip-open { font-size: 0.7rem; color: #00d4ff; font-weight: 600; margin-top: 6px; }
+
+/* Right Panel */
+.heatmap-panel { padding: 16px; display: flex; flex-direction: column; gap: 12px; overflow-y: auto; background: rgba(2,10,16,0.5); }
+
+.hmap-filter-card { padding: 16px; }
+.hmap-filter-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: rgba(255,255,255,0.35); margin-bottom: 10px; }
+.hmap-filters { display: flex; flex-direction: column; gap: 6px; }
+.hmap-filter-btn {
+  padding: 8px 14px; border-radius: var(--radius-sm);
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  color: rgba(255,255,255,0.5);
+  font-family: var(--font); font-size: 0.82rem; font-weight: 600;
+  cursor: pointer; text-align: left; transition: all 0.2s;
+}
+.hmap-filter-btn:hover { background: rgba(255,255,255,0.08); color: #fff; }
+.hmap-filter-btn.active { color: #fff; }
+
+.hmap-list-card { padding: 16px; flex: 1; }
+.hmap-list-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: rgba(255,255,255,0.35); margin-bottom: 10px; }
+.hmap-list { display: flex; flex-direction: column; gap: 6px; }
+.hmap-list-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 12px; border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer; transition: all 0.2s;
+}
+.hmap-list-item:hover, .hmap-list-item.hovered {
+  background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12);
+}
+.hmap-item-icon { font-size: 1.2rem; flex-shrink: 0; }
+.hmap-item-info { flex: 1; }
+.hmap-item-id { font-size: 0.72rem; font-weight: 700; color: rgba(255,255,255,0.7); }
+.hmap-item-type { font-size: 0.7rem; color: rgba(255,255,255,0.35); text-transform: capitalize; margin-top: 2px; }
+.hmap-item-right { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; }
+
+.hmap-legend { padding: 16px; }
+.legend-row { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.legend-label { font-size: 0.82rem; color: rgba(255,255,255,0.55); }
+.legend-note { font-size: 0.7rem; color: rgba(255,255,255,0.25); margin-top: 8px; }
+
+@media (max-width: 768px) {
+  .heatmap-main { grid-template-columns: 1fr; }
+  .heatmap-panel { display: none; }
+  .hmap-stat-val { font-size: 1.1rem; }
+}

@@ -1,0 +1,99 @@
+/* Incident Room Styles */
+.incident-room {
+  min-height: 100vh;
+  background: #020b18;
+  color: #fff;
+  position: relative;
+}
+.ir-bg {
+  position: fixed; inset: 0;
+  background: radial-gradient(ellipse at 50% 10%, color-mix(in srgb, var(--ctx-color) 5%, transparent) 0%, transparent 60%);
+  pointer-events: none;
+}
+.incident-room-loading {
+  min-height: 100vh; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 20px;
+  background: #020b18; color: rgba(255,255,255,0.5);
+}
+.ir-spinner {
+  width: 40px; height: 40px; border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.1);
+  border-top-color: #00d4ff;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Header */
+.ir-header {
+  display: flex; align-items: center; gap: 16px;
+  padding: 20px 32px;
+  background: rgba(2,11,24,0.9);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+  position: sticky; top: 0; z-index: 100;
+  gap: 20px;
+}
+.ir-title-group { flex: 1; }
+.ir-context-tag { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 20px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 6px; }
+.ir-incident-id { font-size: 1.1rem; font-weight: 800; color: #fff; letter-spacing: -0.01em; }
+.ir-live-badge { display: flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; background: rgba(255,68,68,0.1); border: 1px solid rgba(255,68,68,0.25); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; color: #ff4444; }
+
+/* Content */
+.ir-content { padding: 24px 32px; display: flex; flex-direction: column; gap: 20px; max-width: 1300px; margin: 0 auto; }
+
+/* Top Row */
+.ir-top-row { display: grid; grid-template-columns: 180px 1fr 1fr 1fr; gap: 16px; }
+
+.ir-severity-card { padding: 20px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.ir-sev-num { font-size: 1.4rem; }
+.ir-elapsed { font-size: 0.78rem; color: rgba(255,255,255,0.4); font-variant-numeric: tabular-nums; }
+
+.ir-location-card, .ir-vessel-card, .ir-reporter-card { padding: 20px; }
+.ir-card-title { font-size: 0.85rem; font-weight: 700; color: rgba(255,255,255,0.8); margin-bottom: 14px; }
+.ir-info-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.83rem; gap: 12px; }
+.ir-info-row span:first-child { color: rgba(255,255,255,0.35); font-weight: 500; flex-shrink: 0; }
+.ir-info-row strong { color: #fff; text-align: right; }
+
+/* Mid Row */
+.ir-mid-row { display: grid; grid-template-columns: 1fr 380px; gap: 16px; }
+.ir-gemini-card, .ir-agencies-card { padding: 22px; }
+.ir-gemini-conf { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; font-size: 0.8rem; color: rgba(255,255,255,0.4); }
+.ir-conf-track { flex: 1; height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; }
+.ir-conf-fill { height: 100%; background: linear-gradient(90deg, #00d4ff, #0099cc); border-radius: 3px; transition: width 1s; }
+.ir-gemini-desc { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+.ir-evac-box { margin-top: 14px; padding: 12px 14px; border-radius: var(--radius-sm); background: rgba(245,166,35,0.08); border: 1px solid rgba(245,166,35,0.2); font-size: 0.85rem; color: rgba(255,255,255,0.7); }
+
+.ir-agencies { display: flex; flex-direction: column; gap: 12px; }
+.ir-agency-row { display: flex; align-items: flex-start; gap: 12px; padding: 12px; border-radius: var(--radius-sm); background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); }
+.ir-agency-icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; background: rgba(255,255,255,0.04); border-radius: 8px; flex-shrink: 0; }
+.ir-agency-info { flex: 1; }
+.ir-agency-name { font-size: 0.88rem; font-weight: 700; color: rgba(255,255,255,0.9); }
+.ir-action-btn {
+  padding: 4px 10px; border-radius: 4px;
+  background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.25);
+  color: #00ff88; font-size: 0.72rem; font-weight: 700; cursor: pointer;
+  transition: all 0.2s;
+}
+.ir-action-btn:hover { background: rgba(0,255,136,0.2); }
+
+/* Timeline */
+.ir-timeline-card { padding: 24px; }
+.ir-timeline { max-height: 300px; overflow-y: auto; }
+
+/* Report */
+.ir-report-card { padding: 24px; }
+.ir-report { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; }
+.ir-report-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.85rem; gap: 20px; }
+.ir-report-key { color: rgba(255,255,255,0.35); text-transform: capitalize; flex-shrink: 0; }
+.ir-report-val { color: rgba(255,255,255,0.8); text-align: right; }
+
+/* Shared chips */
+.inc-type-tag { padding: 3px 10px; border-radius: 4px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); font-size: 0.72rem; font-weight: 600; color: rgba(255,255,255,0.6); text-transform: capitalize; }
+
+@media (max-width: 1000px) {
+  .ir-top-row { grid-template-columns: 1fr 1fr; }
+  .ir-mid-row { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .ir-top-row { grid-template-columns: 1fr; }
+  .ir-content { padding: 16px; }
+}
